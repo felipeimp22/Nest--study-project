@@ -3,7 +3,7 @@ import { InjectModel } from '@nestjs/mongoose'
 import { Model } from 'mongoose'
 
 
-import { User } from './user'
+import { User } from './user.dto'
 
 @Injectable()
 export class UsersService {
@@ -19,7 +19,14 @@ export class UsersService {
   }
   async listOne(body) {
     const { name } = body
-    return this.userModel.findOne({ 'name': name })
+    return this.userModel.find({ 'name': name })
+  }
+  async findAll() {
+    return this.userModel.find().exec()
+  }
+  async findByIdParam(id) {
+
+    return this.userModel.find({ _id: id })
   }
 
 }

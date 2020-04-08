@@ -2,7 +2,7 @@ import { Controller, Get, Post, Body, Delete, Param, Put } from '@nestjs/common'
 
 
 import { UsersService } from './shared/users.service'
-import { User } from './shared/user'
+import { User } from './shared/user.dto'
 
 @Controller('users')
 export class UsersController {
@@ -20,9 +20,20 @@ export class UsersController {
   }
 
   //Acha um buscando pelo body passado na req
-  @Get('/ver')
-  async listOne(@Body() body: Body): Promise<any> {
+  @Get('/bodyFind')
+  async bodyFind(@Body() body: Body): Promise<any> {
     return this.usersService.listOne(body)
+  }
+
+
+  @Get('/findAll')
+  async findAll(): Promise<any> {
+    return this.usersService.findAll()
+  }
+
+  @Get(':id')
+  async findByIdParam(@Param('id') id: string) {
+    return this.usersService.findByIdParam(id)
   }
 
 }
